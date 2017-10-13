@@ -1,0 +1,2 @@
+Did two meeting with teams regarding Dictation, and NLP transcription
+Presence detection in Signaling server [ rabbit MQ ]

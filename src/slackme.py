@@ -1,8 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-
 from browser.browser import Browser
 import argparse
+import time
 
 
 def signin(chrome=None, url=None, email=None, password=None):
@@ -50,14 +49,27 @@ def submit(chrome=None, message=None):
     return True
 
 
+def get_message():
+    from data import loadpath as filepath
+    _filepath = filepath.load_path()
+    msg = time.strftime("*Update %d/%m:*")+"\n"
+
+    with open(_filepath) as fd:
+        itr = 1
+        for line in fd.readlines():
+            msg = msg + str(itr)+ ". "+line
+            itr +=1
+
+    return msg
+
 def main(args):
     slackurl = args.slackurl
     channel = args.channel
     email = args.email
     password = args.password
-    message = args.message
+    message = get_message()
 
-    print '-> ', slackurl, channel
+    # print message
     browser = Browser()
 
     chrome = browser.get_browser()
@@ -76,8 +88,6 @@ if __name__ == "__main__":
     parser.add_argument('-channel', '-c', help="channel", required=True, dest='channel')
     parser.add_argument('-email', '-e', help="email", required=True, dest='email')
     parser.add_argument('-password', '-p', help="password", required=True, dest='password')
-    parser.add_argument('-msg-dir', '-m', help="message directory", required=True, dest='message')
 
     args = parser.parse_args()
-
     main(args)
