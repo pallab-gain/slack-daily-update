@@ -17,9 +17,9 @@ def signin(chrome=None, url=None, email=None, password=None):
     signing_button = chrome.find_element_by_id("signin_btn")
 
     email.clear()
-    email.send_keys("pallab@augmedix.com")
+    email.send_keys(email)
     password.clear()
-    password.send_keys("081388040")
+    password.send_keys(password)
     signing_button.click()
 
 
