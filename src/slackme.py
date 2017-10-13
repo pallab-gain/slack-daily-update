@@ -76,16 +76,18 @@ def main(args):
 
     browser = Browser()
 
-    # display = browser.get_display()
-    # display.start()
+    display = browser.get_display()
+    display.start()
 
     chrome = browser.get_browser()
     signin(chrome=chrome, url=slackurl, email=email, password=password)
     if select_channel(chrome=chrome, channel=channel):
         submit(chrome=chrome, message=message)
+    else:
+        print 'could not find channel'
 
     time.sleep(5)
-    browser.dispose(browser=chrome)
+    browser.dispose(browser=chrome,display=display)
 
 
 # email

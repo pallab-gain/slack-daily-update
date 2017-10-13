@@ -12,7 +12,7 @@ class Browser():
         self._chrome_browser = None
 
     def get_display(self):
-        display = Display(visible=0, size=[320, 240])
+        display = Display(visible=0, size=[640, 480])
         return display
 
     def get_browser(self):
