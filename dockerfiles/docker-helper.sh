@@ -32,6 +32,8 @@ run_container(){
     pushd ${file_path}
     source ${env_path}/bin/activate
 
+    echo ${MESSAGE} >> data/data.txt
+
     #run the program
     python src/slackme.py &\
     -slackurl $SLACK_URL &\
@@ -47,6 +49,7 @@ export SLACK_URL=$2
 export CHANNEL=$3
 export EMAIL=$4
 export PASSWORD=$5
+export MESSAGE=$6
 
 #execute the function
 $1
