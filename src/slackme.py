@@ -5,6 +5,8 @@ import time
 
 
 def signin(chrome=None, url=None, email=None, password=None):
+    print 'signing in ...'
+
     if not (chrome and url and email and password):
         return
 
@@ -12,18 +14,19 @@ def signin(chrome=None, url=None, email=None, password=None):
     WebDriverWait(chrome, 10).until(
         lambda _chrome_browser: chrome.find_element_by_id("signin_btn"))
 
-    email = chrome.find_element_by_id("email")
-    password = chrome.find_element_by_id("password")
+    email_elem = chrome.find_element_by_id("email")
+    password_elem = chrome.find_element_by_id("password")
     signing_button = chrome.find_element_by_id("signin_btn")
 
-    email.clear()
-    email.send_keys(email)
-    password.clear()
-    password.send_keys(password)
+    email_elem.clear()
+    email_elem.send_keys(email)
+    password_elem.clear()
+    password_elem.send_keys(password)
     signing_button.click()
 
 
 def select_channel(chrome=None, channel=None):
+    print 'selecting channel ...'
     if not (chrome and channel):
         return False
     WebDriverWait(chrome, 30).until(
@@ -38,6 +41,7 @@ def select_channel(chrome=None, channel=None):
 
 
 def submit(chrome=None, message=None):
+    print 'submitting text ... '
     if not (chrome and message):
         return False
 
@@ -69,13 +73,16 @@ def main(args):
     password = args.password
     message = get_message()
 
-    # print message
+
     browser = Browser()
+
+    # display = browser.get_display()
+    # display.start()
 
     chrome = browser.get_browser()
     signin(chrome=chrome, url=slackurl, email=email, password=password)
-    select_channel(chrome=chrome, channel=channel)
-    submit(chrome=chrome, message=message)
+    if select_channel(chrome=chrome, channel=channel):
+        submit(chrome=chrome, message=message)
 
     browser.dispose(browser=chrome)
 
