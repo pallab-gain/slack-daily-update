@@ -84,7 +84,7 @@ def main(args):
     if select_channel(chrome=chrome, channel=channel):
         submit(chrome=chrome, message=message)
 
-    time.sleep(10)
+    time.sleep(5)
     browser.dispose(browser=chrome)
 
 
